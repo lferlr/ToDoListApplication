@@ -12,6 +12,8 @@ using MyTodoApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace MyTodoApp
 {
@@ -55,6 +57,14 @@ namespace MyTodoApp
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            var supportedCultures = new[] { new CultureInfo("pt-BR") };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("pt-BR", "pt-BR"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
 
             app.UseAuthentication();
             app.UseAuthorization();

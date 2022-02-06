@@ -24,7 +24,10 @@ namespace MyTodoApp.Controllers
         // GET: Todo
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Todos.ToListAsync());
+            return View(await _context.Todos
+                .AsNoTracking()
+                .Where(x => x.User == User.Identity.Name)
+                .ToListAsync());
         }
 
         // GET: Todo/Details/5
